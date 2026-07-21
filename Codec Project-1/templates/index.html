@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech To Text</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎤 Speech to Text Converter</h1>
+
+    <p>
+        Click the button below and start speaking.
+        Recording will continue for 5 seconds.
+    </p>
+
+    <form action="/record" method="GET" onsubmit="startRecording()">
+        <button id="recordBtn" type="submit">
+            🎤 Start Recording
+        </button>
+    </form>
+
+    <!-- Recording Status -->
+    <div id="status" class="status" style="display:none;">
+        🔴 Recording...
+    </div>
+
+    {% if result %}
+
+    <script>
+        window.onload = function () {
+            document.getElementById("status").style.display = "block";
+            document.getElementById("status").innerHTML = "✅ Recording Completed";
+            document.getElementById("status").style.color = "green";
+        }
+    </script>
+
+    <div class="result">
+
+        <h2>Recognized Text</h2>
+
+        <textarea readonly>{{ result }}</textarea>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<!-- JavaScript -->
+<script>
+function startRecording() {
+
+    document.getElementById("status").style.display = "block";
+
+    document.getElementById("status").innerHTML = "🔴 Recording...";
+
+    document.getElementById("recordBtn").disabled = true;
+
+    document.getElementById("recordBtn").innerHTML = "Recording...";
+}
+</script>
+
+</body>
+</html>
